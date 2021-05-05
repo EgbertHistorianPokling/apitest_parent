@@ -1,5 +1,6 @@
 package com.egbert.apitest.system.controller;
 
+import com.egbert.apitest.common.exception.ApitestException;
 import com.egbert.apitest.common.result.Result;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
