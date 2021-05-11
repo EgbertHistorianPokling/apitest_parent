@@ -19,6 +19,7 @@ import java.util.Random;
 @Api(tags="系统设置管理")
 @RestController
 @RequestMapping("/api/sys/systemSet")
+@CrossOrigin
 public class SystemSetController {
 
     //注入service
@@ -36,7 +37,7 @@ public class SystemSetController {
         return Result.ok(list);
     }
 
-    //2 逻辑删除医院设置
+    //2 逻辑删除系统设置
     @ApiOperation(value = "逻辑删除系统设置")
     @DeleteMapping("delete/{id}")
     public Result removeSystemSet(@PathVariable Long id) {
@@ -58,13 +59,17 @@ public class SystemSetController {
         Page<SystemSet> page = new Page<>(current,limit);
         //构建条件
         QueryWrapper<SystemSet> wrapper = new QueryWrapper<>();
-        String sysname = systemSetQueryVo.getSysname();//x系统名称
+        String sysname = systemSetQueryVo.getSysname();//系统名称
         String sysdescription = systemSetQueryVo.getSysdescription();//系统编号
+        Long creatorid = systemSetQueryVo.getCreatorid();
         if(!StringUtils.isEmpty(sysname)) {
             wrapper.like("sysname",systemSetQueryVo.getSysname());
         }
         if(!StringUtils.isEmpty(sysdescription)) {
             wrapper.like("description",systemSetQueryVo.getSysdescription());
+        }
+        if(!StringUtils.isEmpty(creatorid)) {
+            wrapper.like("creator_id",systemSetQueryVo.getCreatorid());
         }
 
         //调用方法实现分页查询
